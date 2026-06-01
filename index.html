@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marketing Kit — диагностика маркетинга</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <div class="header__brand">
+        <a class="header__logo-link" href="/" aria-label="Marketing Kit — ocean of possibilities">
+          <img class="header__logo-img" src="assets/logo.png" alt="Marketing Kit — ocean of possibilities" width="280" height="126">
+        </a>
+      </div>
+      <a class="header__link" href="https://www.instagram.com/marketing_kit_agency" target="_blank" rel="noopener">Instagram</a>
+    </header>
+
+    <main class="main">
+      <section class="hero">
+        <p class="hero__label">#формадиагностика</p>
+        <h1 class="hero__title">Диагностика маркетинга для предпринимателей, которые устали от хаотичных действий</h1>
+        <p class="hero__subtitle">
+          Разберём, где сейчас теряются деньги, и что мешает маркетингу работать как системе.
+        </p>
+      </section>
+
+      <section class="block">
+        <h2 class="block__title">На диагностике мы:</h2>
+        <ul class="block__list">
+          <li>смотрим текущую маркетинговую систему (или её отсутствие)</li>
+          <li>находим точки утечки бюджета и роста</li>
+          <li>понимаем, какие действия действительно дадут результат в вашей ситуации</li>
+        </ul>
+        <p class="block__note">Без шаблонных решений и универсальных советов.</p>
+      </section>
+
+      <section class="block block--split">
+        <div class="block__col">
+          <h2 class="block__title">Диагностика подойдёт, если вы:</h2>
+          <ul class="block__list">
+            <li>предприниматель или собственник бизнеса</li>
+            <li>уже вкладывались в маркетинг, но результат нестабилен</li>
+            <li>понимаете, что точечные действия больше не работают</li>
+            <li>хотите перейти к системе, а не «постам / рекламе ради галочки»</li>
+          </ul>
+        </div>
+        <div class="block__col block__col--muted">
+          <h2 class="block__title">Диагностика не подойдёт, если вы ищете</h2>
+          <ul class="block__list">
+            <li>«быстро настроить рекламу без стратегии»</li>
+            <li>бесплатную консультацию без дальнейших шагов</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="block block--format">
+        <h2 class="block__title">Формат работы</h2>
+        <ul class="block__list block__list--check">
+          <li>70–90 минут стратегической сессии</li>
+          <li>pre-опросник перед встречей</li>
+          <li>глубокий анализ текущего маркетинга</li>
+          <li>выявление точек потери денег и роста</li>
+          <li>рекомендации следующего шага, исходя из вашей ситуации</li>
+          <li>запись встречи + конспект после созвона</li>
+        </ul>
+        <p class="block__note">Без шаблонных решений и универсальных схем.</p>
+      </section>
+
+      <p class="cta-text">Если это про вас — заполните короткую форму и мы с вами свяжемся</p>
+
+      <section class="form-section" id="forma">
+        <form class="form" id="diagnostic-form" novalidate>
+          <div class="form__grid">
+            <label class="field">
+              <span class="field__label">1. Имя</span>
+              <input class="field__input" type="text" name="name" placeholder="Как к вам обращаться" required>
+            </label>
+
+            <label class="field">
+              <span class="field__label">2.1. Почта</span>
+              <input class="field__input" type="email" name="email" placeholder="name@mail.ru">
+            </label>
+
+            <fieldset class="field field--full fieldset">
+              <legend class="field__label">2. Контакт для связи (WhatsApp / Telegram — один обязательный канал)</legend>
+              <div class="radio-row">
+                <label class="radio">
+                  <input type="radio" name="contactChannel" value="whatsapp" required>
+                  <span>WhatsApp</span>
+                </label>
+                <label class="radio">
+                  <input type="radio" name="contactChannel" value="telegram" required>
+                  <span>Telegram</span>
+                </label>
+              </div>
+              <input class="field__input" type="text" name="contact" placeholder="Номер телефона или @username" required>
+            </fieldset>
+
+            <label class="field field--full">
+              <span class="field__label">3. Сфера бизнеса</span>
+              <select class="field__input field__select" name="sphere" id="sphere-select" required>
+                <option value="" disabled selected>Выберите сферу</option>
+                <option value="retail">Розничная торговля и e-commerce</option>
+                <option value="services">Сфера услуг</option>
+                <option value="horeca">HoReCo</option>
+                <option value="realestate">Недвижимость</option>
+                <option value="b2b">B2B</option>
+                <option value="tourism">Туризм и гостиничный бизнес</option>
+                <option value="education">Образование</option>
+                <option value="beauty">Beauty /wellness</option>
+                <option value="other">Другое</option>
+              </select>
+            </label>
+
+            <label class="field field--full" id="sphere-other-field" hidden>
+              <span class="field__label">Укажите сферу</span>
+              <input class="field__input" type="text" name="sphereOther" placeholder="Ваша сфера бизнеса">
+            </label>
+
+            <label class="field field--full">
+              <span class="field__label">4. Что сейчас больше всего беспокоит в маркетинге?</span>
+              <input class="field__input" type="text" name="concern" placeholder="Например: нет стабильных заявок / дорогие лиды / нет системы" required>
+            </label>
+
+            <fieldset class="field field--full fieldset">
+              <legend class="field__label">5. Есть ли сейчас у вас маркетинговая система?</legend>
+              <div class="radio-list">
+                <label class="radio">
+                  <input type="radio" name="marketingSystem" value="unstable" required>
+                  <span>Да, но работает нестабильно</span>
+                </label>
+                <label class="radio">
+                  <input type="radio" name="marketingSystem" value="tools" required>
+                  <span>Есть отдельные инструменты, без общей логики</span>
+                </label>
+                <label class="radio">
+                  <input type="radio" name="marketingSystem" value="chaos" required>
+                  <span>Нет, всё хаотично</span>
+                </label>
+                <label class="radio">
+                  <input type="radio" name="marketingSystem" value="unsure" required>
+                  <span>Сложно ответить</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <label class="field field--full">
+              <span class="field__label">Ваш основной запрос</span>
+              <textarea class="field__input field__textarea" name="request" rows="4" placeholder="Опишите в 2–4 предложениях, что сейчас не работает или с какой задачей вы хотите разобраться." required></textarea>
+              <span class="field__hint">Например: нестабильные заявки, нет системы, сложно масштабироваться, маркетинг не окупается, нет понимания, что работает.</span>
+            </label>
+          </div>
+
+          <button class="form__submit" type="submit">Перейти к диагностике</button>
+          <p class="form__note">Диагностика проходит онлайн. Длительность — 40–60 минут.</p>
+        </form>
+
+        <div class="form-success" id="form-success" hidden>
+          <p class="form-success__text">Мы изучим ваш запрос и свяжемся с вами для подтверждения времени диагностики.</p>
+          <p class="form-success__title">Спасибо, до встречи</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>© Marketing Kit</span>
+      <span class="footer__accent">ocean of possibilities</span>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
