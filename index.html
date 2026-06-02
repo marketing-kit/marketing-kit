@@ -67,7 +67,7 @@
           <li>рекомендации следующего шага, исходя из вашей ситуации</li>
           <li>запись встречи + конспект после созвона</li>
         </ul>
-        <p class="block__note">Без шаблонных решений и универсальных схем.</p>
+
       </section>
 
       <p class="cta-text">Если это про вас — заполните короткую форму и мы с вами свяжемся</p>
@@ -82,7 +82,7 @@
 
             <label class="field">
               <span class="field__label">2.1. Почта</span>
-              <input class="field__input" type="email" name="email" placeholder="name@mail.ru">
+              <input class="field__input" type="email" name="email" placeholder="name@gmail.ru">
             </label>
 
             <fieldset class="field field--full fieldset">
@@ -155,20 +155,28 @@
             </label>
           </div>
 
+          <label class="consent">
+            <input class="consent__checkbox" type="checkbox" name="privacyConsent" required>
+            <span class="consent__text">
+              Я даю согласие на обработку моих персональных данных и подтверждаю, что ознакомлен(а) с
+              <a class="consent__link" href="politika-konfidencialnosti.html" target="_blank" rel="noopener">Политикой конфиденциальности</a>.
+            </span>
+          </label>
+
           <button class="form__submit" type="submit">Перейти к диагностике</button>
           <p class="form__note">Диагностика проходит онлайн.</p>
         </form>
 
         <div class="form-success" id="form-success" hidden>
           <p class="form-success__text">Мы изучим ваш запрос и свяжемся с вами для подтверждения времени диагностики.</p>
-          <p class="form-success__title">Спасибо, до встречи</p>
+          <p class="form-success__title">Спасибо</p>
         </div>
       </section>
     </main>
 
     <footer class="footer">
       <span>© Marketing Kit</span>
-      <span class="footer__accent">ocean of possibilities</span>
+      <a class="footer__link" href="politika-konfidencialnosti.html">Политика конфиденциальности</a>
     </footer>
   </div>
 

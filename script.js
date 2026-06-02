@@ -46,6 +46,7 @@ form.addEventListener('submit', (event) => {
       : sphereLabels[data.sphere] || data.sphere,
     marketingSystemLabel: marketingSystemLabels[data.marketingSystem] || data.marketingSystem,
     contactChannelLabel: data.contactChannel === 'whatsapp' ? 'WhatsApp' : 'Telegram',
+    privacyConsent: data.privacyConsent === 'on',
     submittedAt: new Date().toISOString(),
   };
 
