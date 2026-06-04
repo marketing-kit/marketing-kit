@@ -1,4 +1,5 @@
-const FORM_EMAIL = 'shperling05@inbox.ru';
+// URL веб-приложения Google Apps Script (см. google-apps-script/Code.gs)
+const FORM_HANDLER_URL = '';
 
 const form = document.getElementById('diagnostic-form');
 const submitBtn = form.querySelector('.form__submit');
@@ -74,32 +75,40 @@ document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape' && !successOverlay.hidden) closeSuccess();
 });
 
-async function sendToEmail(data, labels) {
-  const response = await fetch(`https://formsubmit.co/ajax/${FORM_EMAIL}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    },
-    body: JSON.stringify({
-      _subject: 'Новая заявка на диагностику — Marketing Kit',
-      _template: 'table',
-      name: data.name,
-      email: data.email || '—',
-      contact_channel: labels.contactChannelLabel,
-      contact: data.contact,
-      sphere: labels.sphereLabel,
-      concern: data.concern,
-      marketing_system: labels.marketingSystemLabel,
-      request: data.request,
-    }),
-  });
+function buildPayload(data, labels) {
+  return {
+    name: data.name,
+    email: data.email || '',
+    contact_channel: labels.contactChannelLabel,
+    contact: data.contact,
+    sphere: labels.sphereLabel,
+    concern: data.concern,
+    marketing_system: labels.marketingSystemLabel,
+    request: data.request,
+    submitted_at: new Date().toISOString(),
+  };
+}
 
-  if (!response.ok) {
-    throw new Error('send_failed');
+async function sendToGoogle(payload) {
+  if (!FORM_HANDLER_URL) {
+    throw new Error('handler_not_configured');
   }
 
-  return response.json();
+  const response = await fetch(FORM_HANDLER_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'text/plain;charset=utf-8',
+    },
+    body: JSON.stringify(payload),
+  });
+
+  const result = await response.json();
+
+  if (!response.ok || !result.success) {
+    throw new Error(result.error || 'send_failed');
+  }
+
+  return result;
 }
 
 form.addEventListener('submit', async (event) => {
@@ -108,6 +117,11 @@ form.addEventListener('submit', async (event) => {
 
   if (!form.checkValidity()) {
     form.reportValidity();
+    return;
+  }
+
+  if (!FORM_HANDLER_URL) {
+    showFormError('Форма ещё не подключена к Google Таблице. Укажите URL в настройках.');
     return;
   }
 
@@ -120,16 +134,18 @@ form.addEventListener('submit', async (event) => {
     contactChannelLabel: data.contactChannel === 'whatsapp' ? 'WhatsApp' : 'Telegram',
   };
 
+  const payload = buildPayload(data, labels);
+
   setSubmitting(true);
 
   try {
-    await sendToEmail(data, labels);
+    await sendToGoogle(payload);
 
     const entry = {
       ...data,
       ...labels,
       privacyConsent: data.privacyConsent === 'on',
-      submittedAt: new Date().toISOString(),
+      submittedAt: payload.submitted_at,
     };
 
     const existing = JSON.parse(localStorage.getItem('marketingKitDiagnostics') || '[]');
@@ -140,8 +156,12 @@ form.addEventListener('submit', async (event) => {
     sphereOtherField.hidden = true;
     sphereOtherInput.required = false;
     showSuccess();
-  } catch {
-    showFormError('Не удалось отправить заявку. Попробуйте ещё раз или напишите нам в Instagram.');
+  } catch (error) {
+    if (error.message === 'handler_not_configured') {
+      showFormError('Форма ещё не подключена к Google Таблице. Укажите URL в настройках.');
+    } else {
+      showFormError('Не удалось отправить заявку. Попробуйте ещё раз или напишите нам в Instagram.');
+    }
   } finally {
     setSubmitting(false);
   }
