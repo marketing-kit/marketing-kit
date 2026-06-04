@@ -1,5 +1,5 @@
 // URL веб-приложения Google Apps Script (см. google-apps-script/Code.gs)
-const FORM_HANDLER_URL = '';
+const FORM_HANDLER_URL = 'https://script.google.com/macros/s/AKfycbzAVtQz40rbWYYCegmZK-lhanU0qgzNeIjUzOAmTDRlfFHxMzB_oZFc4VELxjcCuA_-CA/exec';
 
 const form = document.getElementById('diagnostic-form');
 const submitBtn = form.querySelector('.form__submit');
