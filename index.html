@@ -165,12 +165,8 @@
 
           <button class="form__submit" type="submit">Перейти к диагностике</button>
           <p class="form__note">Диагностика проходит онлайн.</p>
+          <p class="form__error" id="form-error" hidden></p>
         </form>
-
-        <div class="form-success" id="form-success" hidden>
-          <p class="form-success__text">Мы изучим ваш запрос и свяжемся с вами для подтверждения времени диагностики.</p>
-          <p class="form-success__title">Спасибо</p>
-        </div>
       </section>
     </main>
 
@@ -178,6 +174,15 @@
       <span>© Marketing Kit</span>
       <a class="footer__link" href="politika-konfidencialnosti.html">Политика конфиденциальности</a>
     </footer>
+  </div>
+
+  <div class="success-overlay" id="success-overlay" hidden>
+    <div class="success-modal" role="dialog" aria-modal="true" aria-labelledby="success-title">
+      <p class="success-modal__title" id="success-title">Спасибо</p>
+      <p class="success-modal__text">Мы изучим ваш запрос и свяжемся с вами для подтверждения времени диагностики.</p>
+      <p class="success-modal__note">Диагностика проходит онлайн.</p>
+      <button type="button" class="success-modal__btn" id="success-close">Понятно</button>
+    </div>
   </div>
 
   <script src="script.js"></script>
