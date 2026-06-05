@@ -34,7 +34,7 @@ body {
   font-size: 16px;
   line-height: 1.65;
   color: var(--color-text);
-  background: var(--color-light);
+  background: #fff;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -43,19 +43,6 @@ body {
   display: flex;
   flex-direction: column;
   position: relative;
-  overflow: hidden;
-}
-
-.page::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 60% 50% at 100% 0%, rgba(33, 94, 60, 0.08), transparent),
-    radial-gradient(ellipse 50% 40% at 0% 100%, rgba(175, 150, 129, 0.12), transparent),
-    linear-gradient(180deg, var(--color-light) 0%, var(--color-beige) 100%);
-  pointer-events: none;
-  z-index: 0;
 }
 
 .header,
@@ -239,8 +226,7 @@ body {
 /* Form */
 
 .form-section {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
+  background: #fff;
   border: 1px solid rgba(34, 36, 37, 0.12);
   padding: clamp(28px, 5vw, 40px);
 }
