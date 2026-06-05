@@ -8,7 +8,8 @@
  * 4. Развернуть → Новое развертывание → Веб-приложение
  *    - Запуск от имени: Я
  *    - Доступ: Все
- * 5. Скопируйте URL и вставьте в script.js → FORM_HANDLER_URL
+ * 5. Скопируйте URL /exec и вставьте в script.js → FORM_HANDLER_URL
+ * 6. Откройте URL в браузере — должно показать {"success":true,"message":"ok"}
  */
 
 const EMAIL_TO = 'e.marketing.kit.agency@gmail.com';
@@ -27,12 +28,7 @@ const HEADERS = [
 ];
 
 function setupSheet() {
-  const sheet = getSheet_();
-  if (sheet.getLastRow() === 0) {
-    sheet.appendRow(HEADERS);
-    sheet.getRange(1, 1, 1, HEADERS.length).setFontWeight('bold');
-    sheet.setFrozenRows(1);
-  }
+  getSheet_();
 }
 
 function getSheet_() {
@@ -52,12 +48,26 @@ function getSheet_() {
   return sheet;
 }
 
+function doGet() {
+  return json_({ success: true, message: 'ok' });
+}
+
 function doPost(e) {
   try {
-    const data = JSON.parse(e.postData.getDataAsString());
-    const sheet = getSheet_();
+    const raw = e.postData && e.postData.contents
+      ? e.postData.contents
+      : e.parameter && e.parameter.payload
+        ? e.parameter.payload
+        : '';
+
+    if (!raw) {
+      return json_({ success: false, error: 'empty_payload' });
+    }
+
+    const data = JSON.parse(raw);
     const submittedAt = data.submitted_at ? new Date(data.submitted_at) : new Date();
 
+    const sheet = getSheet_();
     sheet.appendRow([
       submittedAt,
       data.name || '',
@@ -70,28 +80,34 @@ function doPost(e) {
       data.request || '',
     ]);
 
-    const subject = 'Новая заявка на диагностику — Marketing Kit';
-    const body = [
-      'Новая заявка с сайта marketing-kit.github.io',
-      '',
-      `Дата: ${Utilities.formatDate(submittedAt, Session.getScriptTimeZone(), 'dd.MM.yyyy HH:mm')}`,
-      `Имя: ${data.name || '—'}`,
-      `Email: ${data.email || '—'}`,
-      `Контакт (${data.contact_channel || '—'}): ${data.contact || '—'}`,
-      `Сфера бизнеса: ${data.sphere || '—'}`,
-      `Что беспокоит: ${data.concern || '—'}`,
-      `Маркетинговая система: ${data.marketing_system || '—'}`,
-      '',
-      'Основной запрос:',
-      data.request || '—',
-    ].join('\n');
-
-    MailApp.sendEmail(EMAIL_TO, subject, body);
+    sendEmail_(data, submittedAt);
 
     return json_({ success: true });
   } catch (error) {
     return json_({ success: false, error: String(error) });
   }
+}
+
+function sendEmail_(data, submittedAt) {
+  const subject = 'Новая заявка на диагностику — Marketing Kit';
+  const body = [
+    'Новая заявка с сайта marketing-kit.github.io',
+    '',
+    `Дата: ${Utilities.formatDate(submittedAt, Session.getScriptTimeZone(), 'dd.MM.yyyy HH:mm')}`,
+    `Имя: ${data.name || '—'}`,
+    `Email: ${data.email || '—'}`,
+    `Контакт (${data.contact_channel || '—'}): ${data.contact || '—'}`,
+    `Сфера бизнеса: ${data.sphere || '—'}`,
+    `Что беспокоит: ${data.concern || '—'}`,
+    `Маркетинговая система: ${data.marketing_system || '—'}`,
+    '',
+    'Основной запрос:',
+    data.request || '—',
+  ].join('\n');
+
+  GmailApp.sendEmail(EMAIL_TO, subject, body, {
+    name: 'Marketing Kit — заявки',
+  });
 }
 
 function json_(payload) {
